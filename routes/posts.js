@@ -18,4 +18,9 @@ router.post('/', scrapeUrl, (req, res) => {
     res.send(req.scrapedLink)
 })
 
+router.get('/:postId', async (req, res) => {
+  const post = await GetLinks.findById(req.params.postId)
+  res.json(post)
+})
+
   module.exports = router
