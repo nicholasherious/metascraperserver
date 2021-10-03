@@ -1,0 +1,27 @@
+{
+  "name": "maga-dump-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "metascraper": "^5.24.8",
+    "metascraper-author": "^5.24.8",
+    "metascraper-clearbit": "^5.24.8",
+    "metascraper-date": "^5.24.8",
+    "metascraper-description": "^5.24.8",
+    "metascraper-image": "^5.24.8",
+    "metascraper-instagram": "^5.24.8",
+    "metascraper-logo": "^5.24.8",
+    "metascraper-publisher": "^5.24.8",
+    "metascraper-title": "^5.24.8",
+    "metascraper-url": "^5.24.8",
+    "nodemon": "^2.0.13"
+  }
+}
