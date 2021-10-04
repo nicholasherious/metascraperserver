@@ -14,12 +14,14 @@ const got = require('got');
 
 const scrapeUrl = async (req, res, next) => {
   const link = req.body.link;
+  
 
   try {
     const { body: html, url } = await got(link);
     const metadata = await metascraper({ html, url });
-    console.log(metadata);
+    
     req.scrapedLink = metadata;
+    
     next();
   } catch (error) {
     console.log(error.message);

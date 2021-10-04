@@ -12,6 +12,7 @@ const PostSchema = mongoose.Schema({
     publisher: String,
     title: String,
     url: String,
+    desc: String,
     likes: {
       type: [String],
       default: [],
