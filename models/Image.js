@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const PostSchema = mongoose.Schema(
-  {
+const PostSchema = mongoose.Schema({
     author: String,
     date: String,
     description: String,
@@ -21,6 +20,8 @@ const PostSchema = mongoose.Schema(
     },
   },
   { timestamps: true }
-);
 
-module.exports = mongoose.model('postmessages', PostSchema);
+
+)
+
+module.exports = mongoose.model('postmessages', PostSchema)
