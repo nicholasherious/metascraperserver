@@ -42,8 +42,11 @@ router.get('/:postId', async (req, res) => {
 router.post('/image/upload', upload.single('image'), async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path);
+    const description = req.body.title;
+    console.log(description);
     const uploadedImage = new GetLinks({
       image: result.secure_url,
+      desc: description
     });
     const newImage = await uploadedImage.save();
     res.json(newImage);
