@@ -21,7 +21,9 @@ router.get('/', async (req, res) => {
 router.post('/', scrapeUrl, async (req, res) => {
   const scraped = req.scrapedLink;
   const description = req.body.desc;
-  const post = new GetLinks({ ...scraped, desc: description });
+  const username = req.body.name;
+  const image = req.body.image
+  const post = new GetLinks({ ...scraped, desc: description, name: username, authorImg: image });
 
   try {
     const savedPost = await post.save();
@@ -46,7 +48,7 @@ router.post('/image/upload', upload.single('image'), async (req, res) => {
     console.log(description);
     const uploadedImage = new GetLinks({
       image: result.secure_url,
-      desc: description
+      desc: description,
     });
     const newImage = await uploadedImage.save();
     res.json(newImage);
