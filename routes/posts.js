@@ -8,6 +8,8 @@ const GetLinks = require('../models/GetLinks');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 
+const { getPosts, createPost, deletePost, likePost } = require('../controllers/posts');
+
 router.get('/', async (req, res) => {
   try {
     const posts = await GetLinks.find().sort({ _id: -1 });
@@ -56,5 +58,9 @@ router.post('/image/upload', upload.single('image'), async (req, res) => {
     console.log(error);
   }
 });
+
+//Like Post
+
+router.patch('/:id/likepost', auth, likePost)
 
 module.exports = router;
