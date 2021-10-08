@@ -10,14 +10,18 @@ const upload = require('../utils/multer');
 
 const { getPosts, createPost, deletePost, likePost } = require('../controllers/posts');
 
-router.get('/', async (req, res) => {
-  try {
-    const posts = await GetLinks.find().sort({ _id: -1 });
-    res.json(posts);
-  } catch (error) {
-    res.json({ message: error });
-  }
-});
+// router.get('/', async (req, res) => {
+//   try {
+//     const posts = await GetLinks.find().sort({ _id: -1 });
+//     res.json(posts);
+//   } catch (error) {
+//     res.json({ message: error });
+//   }
+// });
+
+router.get('/', getPosts)
+
+
 
 // Post Links from React
 router.post('/', scrapeUrl, async (req, res) => {
@@ -61,6 +65,6 @@ router.post('/image/upload', upload.single('image'), async (req, res) => {
 
 //Like Post
 
-router.patch('/:id/likepost', auth, likePost)
+router.patch('/:id/likepost', likePost)
 
 module.exports = router;

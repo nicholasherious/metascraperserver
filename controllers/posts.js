@@ -6,7 +6,7 @@ const getPosts = async (req, res) => {
   
   try {
     const page = parseInt(req.query.page || '0');
-  const PAGE_SIZE = 5
+  const PAGE_SIZE = 12
   const total = await PostMessage.countDocuments({})
     const postMessages = await PostMessage.find().sort({
       createdAt: -1,
