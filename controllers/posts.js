@@ -66,4 +66,31 @@ if(!req.userId) return res.json({ message: "Unauthenticated"})
   res.json(updatedPost)
 }
 
-module.exports = { createPost, getPosts, deletePost, likePost };
+
+const fetchPosts = async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.skip);
+
+    const tradesCollection = await PostMessage.find().skip(offset).limit(limit);
+    const tradesCollectionCount = await PostMessage.count();
+
+    const totalPages = Math.ceil(tradesCollectionCount / limit);
+    const currentPage = Math.ceil(tradesCollectionCount % offset);
+
+    res.status(200).send({
+      data: tradesCollection,
+      paging: {
+        total: tradesCollectionCount,
+        page: currentPage,
+        pages: totalPages,
+      },
+    });
+  } catch (e) {
+    console.log("Error", e);
+    res.status(500).send({
+      data: null,
+    });
+  }
+};
+module.exports = { createPost, getPosts, deletePost, likePost, fetchPosts };

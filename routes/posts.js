@@ -8,7 +8,7 @@ const GetLinks = require('../models/GetLinks');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 
-const { getPosts, createPost, deletePost, likePost } = require('../controllers/posts');
+const { getPosts, createPost, deletePost, likePost, fetchPosts } = require('../controllers/posts');
 
 // router.get('/', async (req, res) => {
 //   try {
@@ -19,7 +19,7 @@ const { getPosts, createPost, deletePost, likePost } = require('../controllers/p
 //   }
 // });
 
-router.get('/', getPosts)
+router.get('/', fetchPosts)
 
 
 
