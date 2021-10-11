@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+
+mongoosePaginate.paginate.options = {
+  limit: 20,
+  sort: { createdAt: -1 },
+};
 
 const PostSchema = mongoose.Schema(
   {
@@ -23,5 +29,7 @@ const PostSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+PostSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('postmessages', PostSchema);

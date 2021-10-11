@@ -8,28 +8,39 @@ const GetLinks = require('../models/GetLinks');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 
-const { getPosts, createPost, deletePost, likePost, fetchPosts } = require('../controllers/posts');
+const {
+  getPosts,
+  createPost,
+  deletePost,
+  likePost,
+  fetchPosts,
+  findAll,
+} = require('../controllers/posts');
 
-// router.get('/', async (req, res) => {
-//   try {
-//     const posts = await GetLinks.find().sort({ _id: -1 });
-//     res.json(posts);
-//   } catch (error) {
-//     res.json({ message: error });
-//   }
-// });
+// Paginate Options
 
-router.get('/', fetchPosts)
+// const options = {
+//   sort: { createdAt: -1 },
+// };
 
-
+router.get('/', async (req, res) => {
+  const { limit, page } = req.query;
+  const getPosts = await GetLinks.paginate({}, { limit, page });
+  res.json(getPosts);
+});
 
 // Post Links from React
 router.post('/', scrapeUrl, async (req, res) => {
   const scraped = req.scrapedLink;
   const description = req.body.desc;
   const username = req.body.name;
-  const image = req.body.image
-  const post = new GetLinks({ ...scraped, desc: description, name: username, authorImg: image });
+  const image = req.body.image;
+  const post = new GetLinks({
+    ...scraped,
+    desc: description,
+    name: username,
+    authorImg: image,
+  });
 
   try {
     const savedPost = await post.save();
@@ -65,6 +76,6 @@ router.post('/image/upload', upload.single('image'), async (req, res) => {
 
 //Like Post
 
-router.patch('/:id/likepost', likePost)
+router.patch('/:id/likepost', likePost);
 
 module.exports = router;
