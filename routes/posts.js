@@ -24,9 +24,29 @@ const {
 // };
 
 router.get('/', async (req, res) => {
-  const { limit, page } = req.query;
-  const getPosts = await GetLinks.paginate({}, { limit, page });
-  res.json(getPosts);
+  const { page = 1, limit = 15 } = req.query;
+
+try {
+  
+  const posts = await GetLinks.find().limit(limit * 1)
+  .skip((page - 1) * limit).sort({createdAt: '-1'})
+  .exec();
+ 
+
+  // get total documents in the Posts collection 
+  const count = await GetLinks.countDocuments();
+
+  res.json({
+    posts,
+    totalPages: Math.ceil(count / limit),
+    currentPage: page
+  });
+
+} catch (err) {
+  console.error(err.message);
+}
+
+  
 });
 
 // Post Links from React
