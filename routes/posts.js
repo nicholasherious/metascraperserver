@@ -26,27 +26,24 @@ const {
 router.get('/', async (req, res) => {
   const { page = 1, limit = 15 } = req.query;
 
-try {
-  
-  const posts = await GetLinks.find().limit(limit * 1)
-  .skip((page - 1) * limit).sort({createdAt: '-1'})
-  .exec();
- 
+  try {
+    const posts = await GetLinks.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .sort({ createdAt: '-1' })
+      .exec();
 
-  // get total documents in the Posts collection 
-  const count = await GetLinks.countDocuments();
+    // get total documents in the Posts collection
+    const count = await GetLinks.countDocuments();
 
-  res.json({
-    posts,
-    totalPages: Math.ceil(count / limit),
-    currentPage: page
-  });
-
-} catch (err) {
-  console.error(err.message);
-}
-
-  
+    res.json({
+      posts,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 // Post Links from React
@@ -55,15 +52,18 @@ router.post('/', scrapeUrl, async (req, res) => {
   const description = req.body.desc;
   const username = req.body.name;
   const image = req.body.image;
+  const userData = req.body.userData;
   const post = new GetLinks({
     ...scraped,
     desc: description,
     name: username,
     authorImg: image,
+    userData: userData,
   });
 
   try {
     const savedPost = await post.save();
+
     res.json(savedPost);
   } catch (error) {
     res.json({ message: error });

@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
+const userData = new mongoose.Schema({
+  name: String,
+  email: String,
+  image: String,
+});
+
+module.exports = mongoose.model('User', userData);
 
 const PostSchema = mongoose.Schema(
   {
@@ -9,6 +16,8 @@ const PostSchema = mongoose.Schema(
     creator: String,
     name: String,
     userid: String,
+
+    userData: String,
     image: String,
     logo: String,
     publisher: String,
@@ -24,7 +33,5 @@ const PostSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-
-
 
 module.exports = mongoose.model('postmessages', PostSchema);
