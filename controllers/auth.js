@@ -4,13 +4,14 @@ const bcrypt = require('bcrypt');
 
 const getUser = async (req, res) => {
     console.log(req.user)
-    console.log(req.isAuthenticated)
+    
     res.send(req.user)
+    
 }
 
 const login = async (req, res) => {
-    console.log(req)
-    res.status(200).json({ name: 'Nick', email: 'testing@gmail.com'})
+    console.log("logged in")
+    req.logIn(user, () => {})
 }
 
 const register = async (req, res) => {
