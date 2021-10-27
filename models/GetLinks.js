@@ -15,9 +15,8 @@ const PostSchema = mongoose.Schema(
     description: String,
     creator: String,
     name: String,
-    userid: String,
-    user: { type: mongoose.Types.ObjectId, ref: 'users'},
-
+    userLinkId: String,
+    // user: { type: mongoose.Types.ObjectId, ref: 'users'},
     userData: String,
     image: String,
     logo: String,
