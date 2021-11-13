@@ -41,24 +41,9 @@ const getSinglePost = async (req, res) => {
 
 const postLink = async (req, res) => {
   const scraped = req.scrapedLink;
-  const description = req.body.desc;
-  const username = req.body.name;
-  const userLinkId = req.body.userLinkId;
-  const image = req.body.image;
-  const userData = req.body.userData;
-  const post = new GetLinks({
-    ...scraped,
-    desc: description,
-    name: username,
-    authorImg: image,
-    userData: userData,
-    userLinkId: userLinkId,
-  });
 
   try {
-    const savedPost = await post.save();
-
-    res.json(savedPost);
+    res.send(scraped);
   } catch (error) {
     res.json({ message: error });
   }
